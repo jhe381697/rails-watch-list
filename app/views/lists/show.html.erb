@@ -1,6 +1,11 @@
 <div class="container">
   <h1>Movies</h1>
-  <%= @list.movies %>
+  <% @list.movies.each do |movie| %>
+    <div class="card"><%= movie.title %></div>
+    <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+    <%= link_to 'Delete', bookmark_path(bookmark),
+      data: {confirm: 'Are you sure?'}, method: :delete %>
+  <% end %>
   <%= link_to "Back to lists", lists_path %>
   <%= link_to "Add a bookmark", new_list_bookmark_path(@list) %>
 </div>
